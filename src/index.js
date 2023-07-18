@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const connect = require("./config/database-config");
 const { PORT } = require("./config/server-config");
 const routing = require("./routes/index");
@@ -7,6 +8,14 @@ const { userService } = require("./services/index");
 const app = express();
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: "*",
+    credentials: true, //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
+  })
+);
+
 app.use("/api", routing);
 
 const startServer = () => {
